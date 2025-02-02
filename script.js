@@ -39,17 +39,25 @@ function logout() {
 function transfer() {
     const recipientUsername = document.getElementById('transfer-username').value;
     const amount = parseInt(document.getElementById('transfer-amount').value);
-    const senderUsername = users.find(user => user.username === document.getElementById('welcome-message').innerText.split(', ')[1]);
     
+    // Получаем текущего пользователя
+    const currentUser = users.find(user => user.username === document.getElementById('welcome-message').innerText.split(', ')[1]);
+
+    // Находим получателя
     const recipient = users.find(user => user.username === recipientUsername);
-    if (recipient && senderUsername.currency >= amount && amount > 0) {
-        senderUsername.currency -= amount;
+    
+    if (recipient && currentUser.currency >= amount && amount > 0) {
+        // Выполняем перевод
+        currentUser.currency -= amount;
         recipient.currency += amount;
+        
+        // Сохраняем изменения в localStorage
         localStorage.setItem('users', JSON.stringify(users));
+        
         alert('Перевод успешен!');
-        document.getElementById('currency').innerText = senderUsername.currency;
+        document.getElementById('currency').innerText = currentUser.currency;
     } else {
-        alert('Ошибка перевода!');
+        alert('Ошибка перевода! Проверьте никнейм получателя и сумму.');
     }
 }
 
@@ -67,4 +75,3 @@ function viewProfile(username) {
     const user = users.find(user => user.username === username);
     alert(`Профиль пользователя:\nНикнейм: ${user.username}\nВиртуальная валюта: ${user.currency}`);
 }
-
