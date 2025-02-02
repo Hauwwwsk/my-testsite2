@@ -38,10 +38,11 @@ function logout() {
 
 function transfer() {
     const recipientUsername = document.getElementById('transfer-username').value;
-    const amount = parseInt(document.getElementById('transfer-amount').value);
+    const amount = parseInt(document.getElementById('transfer-amount').value, 10);
     
     // Получаем текущего пользователя
-    const currentUser = users.find(user => user.username === document.getElementById('welcome-message').innerText.split(', ')[1]);
+    const currentUsername = document.getElementById('welcome-message').innerText.split(', ')[1];
+    const currentUser = users.find(user => user.username === currentUsername);
 
     // Находим получателя
     const recipient = users.find(user => user.username === recipientUsername);
