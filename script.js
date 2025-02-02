@@ -1,7 +1,7 @@
 const users = JSON.parse(localStorage.getItem('users')) || [];
 
 function register() {
-    const username = document.getElementById('reg-username').value;
+    const username = document.getElementById('reg-username').value.trim();
     if (username && !users.find(user => user.username === username)) {
         const newUser = {
             username: username,
@@ -18,7 +18,7 @@ function register() {
 }
 
 function login() {
-    const username = document.getElementById('login-username').value;
+    const username = document.getElementById('login-username').value.trim();
     const user = users.find(user => user.username === username);
     if (user) {
         document.getElementById('auth').style.display = 'none';
@@ -37,24 +37,17 @@ function logout() {
 }
 
 function transfer() {
-    const recipientUsername = document.getElementById('transfer-username').value;
+    const recipientUsername = document.getElementById('transfer-username').value.trim();
     const amount = parseInt(document.getElementById('transfer-amount').value, 10);
     
-    // Получаем текущего пользователя
     const currentUsername = document.getElementById('welcome-message').innerText.split(', ')[1];
     const currentUser = users.find(user => user.username === currentUsername);
-
-    // Находим получателя
     const recipient = users.find(user => user.username === recipientUsername);
     
     if (recipient && currentUser.currency >= amount && amount > 0) {
-        // Выполняем перевод
         currentUser.currency -= amount;
         recipient.currency += amount;
-        
-        // Сохраняем изменения в localStorage
         localStorage.setItem('users', JSON.stringify(users));
-        
         alert('Перевод успешен!');
         document.getElementById('currency').innerText = currentUser.currency;
     } else {
