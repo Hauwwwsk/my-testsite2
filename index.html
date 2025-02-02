@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Сайт с регистрацией</title>
+</head>
+<body>
+    <h1>Система регистрации и входа</h1>
+    
+    <div id="auth">
+        <h2>Регистрация</h2>
+        <input type="text" id="reg-username" placeholder="Никнейм" required>
+        <button onclick="register()">Зарегистрироваться</button>
+
+        <h2>Вход</h2>
+        <input type="text" id="login-username" placeholder="Никнейм" required>
+        <button onclick="login()">Войти</button>
+    </div>
+
+    <div id="user-info" style="display:none;">
+        <h2>Профиль пользователя</h2>
+        <p id="welcome-message"></p>
+        <p>Виртуальная валюта: <span id="currency"></span></p>
+        <input type="text" id="transfer-username" placeholder="Никнейм получателя">
+        <input type="number" id="transfer-amount" placeholder="Сумма">
+        <button onclick="transfer()">Перевести</button>
+        <button onclick="logout()">Выйти</button>
+    </div>
+
+    <h2>Зарегистрированные пользователи</h2>
+    <ul id="user-list"></ul>
+
+    <script src="script.js"></script>
+</body>
+</html>
